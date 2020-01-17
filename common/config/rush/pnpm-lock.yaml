@@ -31,7 +31,6 @@ dependencies:
   eslint-plugin-vue: 6.1.2_eslint@5.16.0
   js-sql-parser: 1.0.7
   postcss-nested: 4.2.1
-  precss: 4.0.0
   prettier: 1.19.1
   proj4: 2.6.0
   sass: 1.24.3
@@ -50,6 +49,7 @@ dependencies:
   vue-property-decorator: 8.3.0
   vue-template-compiler: 2.6.11
   vuex: 3.1.2
+  vuex-pathify: 1.4.1_vue@2.6.11+vuex@3.1.2
   webpack: 4.41.3_webpack@4.41.3
   webpack-cli: 3.3.10_webpack@4.41.3
   webpack-dev-server: 3.9.0_webpack@4.41.3
@@ -11582,6 +11582,17 @@ packages:
     dev: false
     resolution:
       integrity: sha512-VfPwgcGABbGAue9+sfrD4PuwFar7gPb1yl1UK1MwXoQPAw0BKSqWfoYCT/ThFrdEVWoI51dBuyCoiNU9bZDZxQ==
+  /vuex-pathify/1.4.1_vue@2.6.11+vuex@3.1.2:
+    dependencies:
+      vue: 2.6.11
+      vue-class-component: 7.1.0
+      vuex: 3.1.2
+    dev: false
+    peerDependencies:
+      vue: ^2.5.19
+      vuex: ^3.0.1
+    resolution:
+      integrity: sha512-i4CsRrOW9r67su8YiVrthTvNfjACUMTjVne6Gxsa+tAxyNhGdKLOXhlDyi3e536gDrgHFU7Uon1TfaKoErfAuA==
   /vuex/3.1.2:
     dev: false
     resolution:
@@ -12172,13 +12183,14 @@ packages:
       vue-property-decorator: 8.3.0
       vue-template-compiler: 2.6.11
       vuex: 3.1.2
+      vuex-pathify: 1.4.1_vue@2.6.11+vuex@3.1.2
     dev: false
     id: 'file:projects/ramp-core.tgz'
     name: '@rush-temp/ramp-core'
     peerDependencies:
       webpack: '*'
     resolution:
-      integrity: sha512-rZ8+/FHgR3gqvsY1FDxyK/3LTTr+0KgrB3QU65MezsbKr8NMrwH83HMEeGE39cJ35L8Pjol0KioN5xOdQE/Krw==
+      integrity: sha512-lZV2aD/rX21B48lAm7fhpNfn5ZiotkUa3L/bOvt0eRWBC59a52TIlkpE/8BkqzjbLJ75GUxXH/1yEkQfKqZXJA==
       tarball: 'file:projects/ramp-core.tgz'
     version: 0.0.0
   'file:projects/ramp-geoapi.tgz':
@@ -12247,7 +12259,6 @@ specifiers:
   eslint-plugin-vue: ^6.0.0
   js-sql-parser: 1.0.7
   postcss-nested: ~4.2.1
-  precss: ~4.0.0
   prettier: ^1.19.1
   proj4: 2.6.0
   sass: ^1.23.7
@@ -12266,6 +12277,7 @@ specifiers:
   vue-property-decorator: ^8.3.0
   vue-template-compiler: ^2.6.10
   vuex: ^3.1.2
+  vuex-pathify: ~1.4.1
   webpack: 4.41.3
   webpack-cli: 3.3.10
   webpack-dev-server: 3.9.0

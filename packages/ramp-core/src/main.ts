@@ -1,6 +1,10 @@
 import Vue from 'vue';
+import { Store } from 'vuex';
+
 import App from '@/app.vue';
-import store from '@/store';
+import { createStore, RootState } from '@/store';
+
+const store: Store<RootState> = createStore();
 
 Vue.config.productionTip = false;
 
