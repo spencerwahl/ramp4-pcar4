@@ -20,13 +20,29 @@ const state: LayerState = {
     ]
 };
 
-// decide if these are needed
-//enum Action {}
+enum Getters {
+    getLayerById = 'getLayerById'
+}
 
-//enum Mutation {}
+// decide if these are needed
+enum Actions {}
+
+//enum Mutations {}
+
+export enum LayerStore {
+    //get layer by id
+    /**
+     * getLayerById: (id: string) => Layer | string
+     */
+    getLayerById = 'layers/getLayerById', // on the side
+    //layers
+    layers = 'layers/layers'
+}
+
+export type getLayerById = (id: string) => Layer | string;
 
 const getters = {
-    getLayerById: (state: LayerState) => (id: string): Layer | string => {
+    [Getters.getLayerById]: (state: LayerState) => (id: string): Layer | string => {
         return state.layers.find((layer: Layer) => layer.id === id) || 'LAYER NOT FOUND';
     }
 };
