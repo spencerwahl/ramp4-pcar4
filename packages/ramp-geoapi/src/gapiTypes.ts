@@ -15,11 +15,11 @@ export interface EpsgLookup {
 
 export interface GeoApiOptions {
     apiUrl?: string;
-    epsgLookup?: EpsgLookup
+    epsgLookup?: EpsgLookup;
 }
 
 export interface DojoWindow extends Window {
-    require?: any;  // require is both a function, and has event handlers. probably a way to define in typescript interface, not going to right now.
+    require?: any; // require is both a function, and has event handlers. probably a way to define in typescript interface, not going to right now.
 }
 
 // contains the dojo modules
@@ -116,10 +116,18 @@ export enum LayerState { // these are used as css classes; hence the `rv` prefix
     ERROR = 'rv-error'
 }
 
+export enum LayerTypes {
+    GeoJSON = 'GeoJSON',
+    FeatureLayer = 'FeatureLayer',
+    WmsLayer = 'WmsLayer',
+    TileLayer = 'TileLayer',
+    MapImageLayer = 'MapImageLayer'
+}
+
 // a collection of attributes
 export interface AttributeSet {
     features: Array<any>;
-    oidIndex?: {[key: string]: number}; // TODO check if we're relly using the index enough to make it worth keeping
+    oidIndex?: { [key: string]: number }; // TODO check if we're relly using the index enough to make it worth keeping
 }
 
 export interface LegendSymbology {
@@ -154,7 +162,8 @@ export interface RampLayerFieldMetadataConfig {
 }
 
 // i.e. a dynamic layer child
-export interface RampLayerMapImageLayerEntryConfig { // A+ name
+export interface RampLayerMapImageLayerEntryConfig {
+    // A+ name
     index?: number;
     name?: string;
     nameField?: string;
@@ -162,10 +171,10 @@ export interface RampLayerMapImageLayerEntryConfig { // A+ name
     state?: RampLayerStateConfig;
     // following items need to be flushed out
     extent?: any;
-    controls?:  any;
-    stateOnly?:  any;
-    table?:  any;
-    fieldMetadata?:  any;
+    controls?: any;
+    stateOnly?: any;
+    table?: any;
+    fieldMetadata?: any;
 }
 
 // i.e. a wms layer child
@@ -174,7 +183,7 @@ export interface RampLayerWmsLayerEntryConfig {
     name?: string;
     state?: RampLayerStateConfig;
     // following items need to be flushed out
-    controls?:  any;
+    controls?: any;
     // more...
 }
 
@@ -182,6 +191,7 @@ export interface RampLayerConfig {
     id?: string;
     url?: string;
     name?: string;
+    type: string;
     state?: RampLayerStateConfig;
     customRenderer?: any; // TODO expand, if worth it. fairly complex object
     refreshInterval?: number;

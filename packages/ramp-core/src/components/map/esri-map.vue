@@ -6,11 +6,11 @@
 import { Vue, Watch, Component } from 'vue-property-decorator';
 import { Get, Sync, Call } from 'vuex-pathify';
 import GapiLoader, { Map, GeoApi, RampMapConfig } from 'ramp-geoapi';
-// import { window } from '@/main';
+import FeatureLayer from 'ramp-geoapi/dist/layer/FeatureLayer';
 
 import { ConfigStore } from '@/store/modules/config';
 import { LayerStore, layer } from '@/store/modules/layer';
-import FeatureLayer from 'ramp-geoapi/dist/layer/FeatureLayer';
+import api from '@/api';
 
 @Component
 export default class EsriMap extends Vue {
@@ -32,7 +32,7 @@ export default class EsriMap extends Vue {
 
     @Watch('mapConfig')
     onMapConfigChange(newValue: RampMapConfig, oldValue: RampMapConfig) {
-        this.map = (window as any).RAMP.geoapi.maps.createMap(this.mapConfig, this.$el as HTMLDivElement);
+        this.map = api.geoapi.maps.createMap(this.mapConfig, this.$el as HTMLDivElement);
         this.onLayerArrayChange(this.layers, []);
     }
 }

@@ -1,15 +1,15 @@
 import esri = __esri;
 
-import { InfoBundle, ArcGisServerUrl } from '../gapiTypes';
+import { InfoBundle, ArcGisServerUrl, LayerTypes } from '../gapiTypes';
 import BaseBase from '../BaseBase';
 
 export default class SharedUtils extends BaseBase {
-
-    constructor (infoBundle: InfoBundle) {
+    constructor(infoBundle: InfoBundle) {
         super(infoBundle);
     }
 
     // TODO figure out grand scheme of layer type strings. use enum? adopt server strings?
+    // TODO pt 2: ENUM for now, above todo is still relevant
     /**
      * Will return a string indicating the type of layer a layer object is.
      * @method getLayerType
@@ -17,20 +17,18 @@ export default class SharedUtils extends BaseBase {
      * @return {String} layer type
      */
     getLayerType(layer: esri.Layer): string {
-
         if (layer instanceof this.esriBundle.FeatureLayer) {
-            return 'FeatureLayer';
+            return LayerTypes.FeatureLayer;
         } else if (layer instanceof this.esriBundle.WMSLayer) {
-            return 'WmsLayer';
+            return LayerTypes.WmsLayer;
         } else if (layer instanceof this.esriBundle.MapImageLayer) {
-            return 'MapImageLayer';
+            return LayerTypes.MapImageLayer;
         } else if (layer instanceof this.esriBundle.TileLayer) {
-            return 'TileLayer';
+            return LayerTypes.TileLayer;
         } else {
             // Can add more types above as we support them
             return 'UNKNOWN';
         }
-
     }
 
     /**
@@ -124,7 +122,7 @@ export default class SharedUtils extends BaseBase {
      * @param  {String} url    an indexed map server url
      * @returns {Object}  the url split into the server root and the index.
      */
-    parseUrlIndex (url: string): ArcGisServerUrl {
+    parseUrlIndex(url: string): ArcGisServerUrl {
         // break url into root and index
 
         // note we are returning index as a string for now.
@@ -149,5 +147,4 @@ export default class SharedUtils extends BaseBase {
 
         return result;
     }
-
 }

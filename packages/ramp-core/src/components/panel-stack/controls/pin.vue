@@ -1,5 +1,5 @@
 <template>
-    <button class="text-gray-500 hover:text-black p-2" :class="{ 'text-gray-700': active }" @click="$emit('click')">
+    <button class="text-gray-500 hover:text-black p-2" :class="{ 'text-gray-800': active }" @click="$emit('click')" aria-label="pin">
         <svg
             class="fill-current w-4 h-4"
             xmlns="http://www.w3.org/2000/svg"

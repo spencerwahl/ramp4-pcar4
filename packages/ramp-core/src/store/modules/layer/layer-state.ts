@@ -1,9 +1,10 @@
 import FeatureLayer from 'ramp-geoapi/dist/layer/FeatureLayer';
+import BaseLayer from 'ramp-geoapi/dist/layer/BaseLayer';
 
 export class LayerState {
-    layers: FeatureLayer[];
+    layers: BaseLayer[];
 
-    constructor(layers: FeatureLayer[]) {
+    constructor(layers: BaseLayer[]) {
         this.layers = layers;
     }
 }
