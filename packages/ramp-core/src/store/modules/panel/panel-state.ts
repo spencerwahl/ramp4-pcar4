@@ -96,6 +96,8 @@ export interface PanelConfig {
      */
     screens: PanelConfigScreens;
 
+    alertName: string;
+
     /**
      * The style object to apply to the panel.
      *

@@ -291,6 +291,21 @@ export class InstanceAPI {
         return this._isFullscreen;
     }
 
+    updateAlert(alert: string): void {
+        const alertEl = this.$vApp.$el.querySelector(
+            '.screen-reader-alert'
+        ) as HTMLElement;
+
+        if (alertEl.childNodes.length > 0) {
+            //alertEl.removeChild(alertEl.firstChild!);
+        }
+        const actualAlert = document.createElement('span');
+        actualAlert.setAttribute('role', 'alert');
+        const alertText = document.createTextNode(alert);
+        actualAlert.appendChild(alertText);
+        alertEl.insertBefore(actualAlert, null);
+    }
+
     start(): void {
         // delay map loading
         if (!this.started && this.startRequired) {
