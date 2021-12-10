@@ -1,4 +1,4 @@
-import { LegendSymbology, TreeNode } from '@/geo/api';
+import { LayerType, LegendSymbology, TreeNode } from '@/geo/api';
 import { LayerInstance } from '@/api/internal';
 
 /**
@@ -121,6 +121,7 @@ export class LegendItem {
  */
 export class LegendEntry extends LegendItem {
     _layer: LayerInstance | undefined;
+    _layerParentId: string | undefined;
     _layerUID: string | undefined;
     _layerIndex: number | undefined;
     _layerTree: TreeNode | undefined;
@@ -137,8 +138,10 @@ export class LegendEntry extends LegendItem {
     constructor(legendEntry: any, parent: LegendGroup | undefined = undefined) {
         super(legendEntry);
 
+        this._layerParentId = legendEntry.layerParentId;
+
         this._isLoaded = false;
-        this._displaySymbology = false;
+        this._displaySymbology = legendEntry.symbologyExpanded || false;
 
         this._loadPromise = new Promise((resolve, _) => {
             this._type =
@@ -156,8 +159,6 @@ export class LegendEntry extends LegendItem {
 
             this._isLoaded =
                 this._layer !== undefined ? this._layer.isValidState : true;
-
-            this._displaySymbology = false;
 
             // check if a layer has been bound to this entry and is done loading. If not, set the type to "placeholder".
             if (this._layer === undefined || !this._isLoaded) {
@@ -211,6 +212,11 @@ export class LegendEntry extends LegendItem {
     /** Returns the UID of the layer */
     get layerUID(): string | undefined {
         return this._layerUID || this._layer?.uid;
+    }
+
+    /** Returns the parent layer id for this layer. Only defined for sublayers */
+    get layerParentId(): string | undefined {
+        return this._layerParentId;
     }
 
     /** Returns the entry index of the layer */
@@ -349,7 +355,21 @@ export class LegendEntry extends LegendItem {
      */
     setEntry(layer: LayerInstance) {
         this._layer = layer;
-        this._type = LegendTypes.Entry;
+        this._layer.isLayerLoaded().then(() => {
+            this._layerTree = this._layer?.getLayerTree();
+            this._layerUID = this._layer?.uid;
+            if (
+                this._layer?.layerType === LayerType.MAPIMAGE &&
+                !this._layerIndex
+            ) {
+                this._type = LegendTypes.Placeholder;
+                console.error(
+                    `MapImageLayer has no entryIndex defined - ${this._itemConfig.layerId} (${this._itemConfig.name})`
+                );
+            } else {
+                this._type = LegendTypes.Entry;
+            }
+        });
     }
 }
 
@@ -407,6 +427,7 @@ export class LegendGroup extends LegendItem {
                 } else {
                     // if the entry is a sublayer, set the entry id to the sublayers id
                     if (entry.entryIndex !== undefined) {
+                        entry.layerParentId = entry.layerId;
                         entry.layerId = `${entry.layerId}-${entry.entryIndex}`;
                     }
                     this._children.push(new LegendEntry(entry, this));

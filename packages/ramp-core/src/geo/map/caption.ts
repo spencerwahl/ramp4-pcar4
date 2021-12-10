@@ -380,14 +380,18 @@ export class MapCaptionAPI extends APIScope {
             Math.abs(dy),
             'number'
         )}${degreeSymbol} ${this.$iApi.$vApp.$n(my, 'number', {
-            minimumIntegerDigits: 2
+            minimumIntegerDigits: 2,
+            minimumFractionDigits: 5,
+            maximumFractionDigits: 5
         } as any)} ${this.$iApi.$vApp.$t(
             'map.coordinates.' + (lat > 0 ? 'north' : 'south')
         )} | ${this.$iApi.$vApp.$n(
             Math.abs(dx),
             'number'
         )}${degreeSymbol} ${this.$iApi.$vApp.$n(mx, 'number', {
-            minimumIntegerDigits: 2
+            minimumIntegerDigits: 2,
+            minimumFractionDigits: 5,
+            maximumFractionDigits: 5
         } as any)} ${this.$iApi.$vApp.$t(
             'map.coordinates.' + (0 > lon ? 'west' : 'east')
         )}`;
@@ -413,15 +417,17 @@ export class MapCaptionAPI extends APIScope {
         const dy = Math.abs(lat);
         const dx = Math.abs(lon);
 
-        return `${this.$iApi.$vApp.$n(
-            dy,
-            'number'
-        )}${degreeSymbol} ${this.$iApi.$vApp.$t(
+        return `${this.$iApi.$vApp.$n(dy, 'number', {
+            minimumIntegerDigits: 2,
+            minimumFractionDigits: 5,
+            maximumFractionDigits: 5
+        } as any)}${degreeSymbol} ${this.$iApi.$vApp.$t(
             'map.coordinates.' + (lat > 0 ? 'north' : 'south')
-        )} | ${this.$iApi.$vApp.$n(
-            dx,
-            'number'
-        )}${degreeSymbol} ${this.$iApi.$vApp.$t(
+        )} | ${this.$iApi.$vApp.$n(dx, 'number', {
+            minimumIntegerDigits: 2,
+            minimumFractionDigits: 5,
+            maximumFractionDigits: 5
+        } as any)}${degreeSymbol} ${this.$iApi.$vApp.$t(
             'map.coordinates.' + (0 > lon ? 'west' : 'east')
         )}`;
     }
@@ -436,19 +442,15 @@ export class MapCaptionAPI extends APIScope {
     async formatMercator(p: Point): Promise<string> {
         // project using Web-Mercator wkid
         const projectedPoint: any =
-            await this.$iApi.geo.utils.proj.projectGeometry(3857, p);
+            await this.$iApi.geo.utils.proj.projectGeometry(102100, p);
 
         return `${this.$iApi.$vApp.$n(
-            Math.abs(Math.floor(projectedPoint.x)),
+            Math.floor(projectedPoint.x),
             'number'
-        )} m ${this.$iApi.$vApp.$t(
-            'map.coordinates.' + (0 > projectedPoint.x ? 'west' : 'east')
-        )} | ${this.$iApi.$vApp.$n(
-            Math.abs(Math.floor(projectedPoint.y)),
+        )} m | ${this.$iApi.$vApp.$n(
+            Math.floor(projectedPoint.y),
             'number'
-        )} m ${this.$iApi.$vApp.$t(
-            'map.coordinates.' + (projectedPoint.y > 0 ? 'north' : 'south')
-        )}`;
+        )} m`;
     }
 
     /**
@@ -530,10 +532,9 @@ export class MapCaptionAPI extends APIScope {
                 p
             );
 
-        return `${this.$iApi.$vApp.$n(projectedPoint.x, 'number', {
-            maximumFractionDigits: 6
-        } as any)} | ${this.$iApi.$vApp.$n(projectedPoint.y, 'number', {
-            maximumFractionDigits: 6
-        } as any)}`;
+        return `${this.$iApi.$vApp.$n(
+            projectedPoint.x,
+            'number'
+        )} | ${this.$iApi.$vApp.$n(projectedPoint.y, 'number')}`;
     }
 }
