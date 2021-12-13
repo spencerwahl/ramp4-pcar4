@@ -99,6 +99,14 @@ export interface PanelConfig {
     alertName: string;
 
     /**
+     * Translation key (or string) to use in panel screen reader alerts.
+     *
+     * @type {string}
+     * @memberof PanelConfig
+     */
+    alertName: string;
+
+    /**
      * The style object to apply to the panel.
      *
      * @type {PanelConfigStyle}

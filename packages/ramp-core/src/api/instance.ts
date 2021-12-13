@@ -291,19 +291,25 @@ export class InstanceAPI {
         return this._isFullscreen;
     }
 
+    /**
+     * Updates the screen reader alert. Use this to inform screen reader users of visual changes in the app (pieces of ui appearing/leaving).
+     *
+     * @param alert the alert to make available to screen readers
+     * @memberof InstanceAPI
+     */
     updateAlert(alert: string): void {
-        const alertEl = this.$vApp.$el.querySelector(
+        const alertContainer = this.$vApp.$el.querySelector(
             '.screen-reader-alert'
         ) as HTMLElement;
 
-        if (alertEl.childNodes.length > 0) {
-            //alertEl.removeChild(alertEl.firstChild!);
+        if (alertContainer.childNodes.length > 0) {
+            alertContainer.innerHTML = '';
         }
-        const actualAlert = document.createElement('span');
-        actualAlert.setAttribute('role', 'alert');
+        const alertSpan = document.createElement('span');
+        alertSpan.setAttribute('role', 'alert');
         const alertText = document.createTextNode(alert);
-        actualAlert.appendChild(alertText);
-        alertEl.insertBefore(actualAlert, null);
+        alertSpan.appendChild(alertText);
+        alertContainer.insertBefore(alertSpan, null);
     }
 
     start(): void {
