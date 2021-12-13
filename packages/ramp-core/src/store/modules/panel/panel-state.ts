@@ -96,8 +96,6 @@ export interface PanelConfig {
      */
     screens: PanelConfigScreens;
 
-    alertName: string;
-
     /**
      * Translation key (or string) to use in panel screen reader alerts.
      *
